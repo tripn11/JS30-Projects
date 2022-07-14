@@ -37,17 +37,70 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    function fiftiesInventors(arr){
+    let inventors;
+    inventors50s = arr.filter(element => {
+      return element.year>1499 && element.year<1600;
+    });
+    console.table(inventors50s);
+    }
+    fiftiesInventors(inventors);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    function firstLastName(arr) {
+      let firstLast = arr.map(function(element) {
+        return element.first+' '+element.last;
+      })
+      console.table(firstLast);
+    }
+    firstLastName(inventors);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+   function respect(arr) {
+    let year = arr.map((element,index) => element.year + '.'+index);
+    let years = year.sort((a,b) => a - b);
+    let final = years.map(element => {
+      let a = element.split('.');
+      a = a[1];
+      return `${arr[a].first} ${arr[a].last} born in ${arr[a].year}`
+    });
+    console.table(final);
+   }
+   respect(inventors);
+
+  //----------------BETTER WAY OF DOING IT -------------------------- //
+    // function respect(arr) {
+    //   let respect = arr.sort((a,b) => a.year>b.year? 1:-1);
+    //   console.log(respect);
+    // }
+    // respect(inventors);
+  //---------------APPARENTLY-----------------------------------------//
+
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    function totalLife(arr) {
+      let years, totalYears;
+      years = arr.map(element => element.passed - element.year);
+      totalYears = years.reduce((total, element) => total+element);
+      console.log(totalYears+' years total');
+    }
+    totalLife(inventors);
 
     // 5. Sort the inventors by years lived
+    function strongHead (arr) {
+      let ages = arr.map((element,index) => element.passed - element.year +"."+index);
+      ages = ages.sort((a,b)=>a-b);
+      let dieHard = ages.map(element => {
+        let details = element.split('.');
+        return arr[details[1]].first +' '+arr[details[1]].last+": "+ details[0]+ ' years'; 
+      })
+      console.log(dieHard);
+    }
+    strongHead(inventors);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -55,6 +108,28 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    function lastName(arr) {
+      let last = arr.map((element, index) => element.last+' '+index);
+      let lastname = last.sort();
+      let indexx = lastname.map(element => {
+        let a = element.split(" ");
+        return a[1];
+      })
+      let people = indexx.map(element => {
+        return arr[element].first +' '+ arr[element].last;
+      })
+      console.log(people);
+    }
+    lastName(inventors);
+
+    //-----------------BETTER WAY------------------------
+    // function lastName(arr) {
+    //   let zedi = arr.sort((a,b) => a.last>b.last?1:-1);
+    //   console.table(zedi);
+    // }
+    // lastName(inventors);
+    //-----------------Apparently-------------------------
+    
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
